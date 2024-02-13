@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ProfilesComponent from './components/ProfilesComponent';
+import ProjectsComponent from './components/ProjectsComponent';
+import EducationComponent from './components/EducationComponent';
+import ExperiencesComponent from './components/ExperiencesComponent';
+import SkillsComponent from './components/SkillsComponent';
+// Import other components
+import './App.css'; // Assuming you have some basic styles
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <h1>Josh Lee's Personal Website</h1>
+            <ProfilesComponent />
+            <ExperiencesComponent />
+            <EducationComponent />
+            <ProjectsComponent />
+            <SkillsComponent />
+        </div>
+    );
 }
 
 export default App;
