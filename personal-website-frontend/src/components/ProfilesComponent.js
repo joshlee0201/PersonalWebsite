@@ -22,7 +22,7 @@ const ProfilesComponent = () => {
                     <img src={profile.profile_picture} alt={`${profile.name}'s profile`} style={{ width: '100px', height: '100px' }} />
                 )}
                 <p><strong>Email:</strong> {profile.contact_email}</p>
-                <p><strong>Phone:</strong> {profile.phone_number}</p>
+                <p><strong>Phone:</strong> ({profile.phone_number.substring(0,3)}) {profile.phone_number.substring(3, 6)}-{profile.phone_number.substring(6, 10)}</p>
                 </div>
             ))}
         </div>

@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures the navbar stays on top of other content */
+}
+
+/* Add padding to the body to prevent content from being hidden behind the navbar */
+body {
+  padding-top: 56px; /* Adjust this value based on the height of your navbar */
+}
+
+.main-heading {
+  margin-top: 70px; /* Adjust based on your navbar's height */
+}
+
+@media (max-width: 768px) {
+  .main-heading {
+      margin-top: 100px; /* Example for when the navbar is taller on smaller screens */
+  }
+}
