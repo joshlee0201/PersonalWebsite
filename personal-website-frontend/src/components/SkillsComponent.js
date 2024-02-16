@@ -17,9 +17,13 @@ const SkillsComponent = () => {
             <h2>Skills</h2>
             {skills.map(skill => (
                 <div key={skill.id} style={{ marginBottom: '20px' }}>
-                    <h3>{skill.name}</h3>
-                    <p><strong>Proficiency Level:</strong> {skill.proficiency_level}</p>
-                    <p><strong>Description:</strong> {skill.description}</p>
+                    <h4>{skill.name}</h4>
+                    {skill.proficiency_level &&
+                        <p><strong>Proficiency Level:</strong> {skill.proficiency_level}</p>
+                    }
+                    {skill.description &&
+                        <p><strong>Description:</strong> {skill.description}</p>
+                    }
                 </div>
             ))}
         </div>
