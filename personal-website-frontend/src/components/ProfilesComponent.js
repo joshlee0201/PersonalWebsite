@@ -11,10 +11,10 @@ const ProfilesComponent = () => {
         }, []);
 
     return (
-        <div>
+        <div className="section">
             <h2>Profiles</h2>
             {profiles.map(profile => (
-                <div key={profile.id}>
+                <div key={profile.id} className="multiple-entry">
                 <h3>{profile.name}</h3>
                 <p><strong>Title:</strong> {profile.title}</p>
                 <p><strong>Bio:</strong> {profile.bio}</p>

@@ -1,5 +1,120 @@
-.App {
+:root {
+  --primary-color: #2e8b57; /* Forest Green */
+  --secondary-color: #faf0e6; /* Soft Beige */
+  --accent-color-1: #007bff; /* Bright Blue */
+  --accent-color-2: #36454f; /* Charcoal Gray */
+  --section-color: #f4c2c2; /* Tan for Sections */
+}
+
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding-top: 100px; /* Adjust for fixed navbar */
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--secondary-color);
+  color: var(--accent-color-2);
+  line-height: 1.6;
+}
+
+.section {
+  background-color: var(--section-color); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 8px; 
+  padding: 20px; 
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  font-size: 2rem; /* Larger font size for section headings */
+  margin-bottom: 20px; /* Additional space below headings */
+  color: #0056b3; /* Color can help differentiate headings */
+}
+
+/* .parallax-section {
+  background-image: url('parallax-image.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+} */
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 0;
   text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #0056b3;
+}
+
+h2 {
+  margin-bottom: 50px;
+}
+
+h3 {
+  margin-bottom: 40px;
+  text-align: left;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  background-color: var(--primary-color);
+}
+
+.navbar + .container, .navbar + [class*='container-'] {
+  margin-top: 56px; /* Space below navbar */
+}
+
+.nav-link, .navbar-brand {
+  color: var(--secondary-color);;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+  color: #ccefff !important; 
+}
+
+.btn-primary, .btn {
+  background-color: var(--accent-color-1); 
+  border: none;
+}
+
+.btn-primary:hover, .btn:hover {
+  background-color: darken(var(--accent-color-1), 10%);
+}
+
+a, .nav-link {
+  color: var(--primary-color); 
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover, .nav-link:hover {
+  color: var(--accent-color-1); 
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .main-heading {
+    margin-top: 100px; /* Adjust margin for smaller screens */
+  }
+  
+  .navbar {
+    padding: 0.5rem 1rem; /* Smaller padding on smaller screens */
+  }
 }
 
 .App-logo {
@@ -13,21 +128,6 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -37,28 +137,7 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
+.multiple-entry {
+  margin-bottom: 100px;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000; /* Ensures the navbar stays on top of other content */
-}
-
-/* Add padding to the body to prevent content from being hidden behind the navbar */
-body {
-  padding-top: 56px; /* Adjust this value based on the height of your navbar */
-}
-
-.main-heading {
-  margin-top: 70px; /* Adjust based on your navbar's height */
-}
-
-@media (max-width: 768px) {
-  .main-heading {
-      margin-top: 100px; /* Example for when the navbar is taller on smaller screens */
-  }
-}

@@ -13,10 +13,10 @@ const ExperiencesComponent = () => {
     }, []);
 
     return (
-        <div>
+        <div className="section">
             <h2>Experience</h2>
             {experiences.map(experience => (
-                <div key={experience.id} style={{ marginBottom: '20px' }}>
+                <div key={experience.id} className="multiple-entry">
                     <h3>{experience.company_name}</h3>
                     <p><strong>Role:</strong> {experience.role}</p>
                     <p><strong>Start Date:</strong> {experience.start_date}</p>

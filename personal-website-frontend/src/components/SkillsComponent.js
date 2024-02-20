@@ -13,11 +13,11 @@ const SkillsComponent = () => {
     }, []);
 
     return (
-        <div>
-            <h2>Skills</h2>
+        <div className="section">
+            <h2 style={{ marginBottom: '40px' }}>Technical Skills</h2>
             {skills.map(skill => (
                 <div key={skill.id} style={{ marginBottom: '20px' }}>
-                    <h4>{skill.name}</h4>
+                    <p>{skill.name}</p>
                     {skill.proficiency_level &&
                         <p><strong>Proficiency Level:</strong> {skill.proficiency_level}</p>
                     }

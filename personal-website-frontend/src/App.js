@@ -4,8 +4,8 @@ import ProjectsComponent from './components/ProjectsComponent';
 import EducationComponent from './components/EducationComponent';
 import ExperiencesComponent from './components/ExperiencesComponent';
 import SkillsComponent from './components/SkillsComponent';
-import './App.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'; 
 import Navbar from './components/Navbar';
 
 function App() {

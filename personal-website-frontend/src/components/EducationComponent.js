@@ -13,10 +13,10 @@ const EducationComponent = () => {
     }, []);
 
     return (
-        <div>
+        <div className="section">
             <h2>Education</h2>
             {educations.map(education => (
-                <div key={education.id} style={{ marginBottom: '20px' }}>
+                <div key={education.id} className="multiple-entry">
                     <h3>{education.institution_name}</h3>
                     <p><strong>Degree:</strong> {education.degree}</p>
                     <p><strong>Field of Study:</strong> {education.field_of_study}</p>

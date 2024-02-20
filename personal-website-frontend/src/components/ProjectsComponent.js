@@ -13,10 +13,10 @@ const ProjectsComponent = () => {
     }, []);
 
     return (
-        <div>
+        <div className="section">
             <h2>Projects</h2>
             {projects.map(project => (
-                <div key={project.id} style={{ marginBottom: '20px' }}>
+                <div key={project.id} className="multiple-entry">
                     <h3>{project.title}</h3>
                     <p><strong>Description:</strong> {project.description}</p>
                     <p><strong>Technologies Used:</strong> {project.technologies_used}</p>
