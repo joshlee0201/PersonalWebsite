@@ -21,7 +21,12 @@ const ExperiencesComponent = () => {
                     <p><strong>Role:</strong> {experience.role}</p>
                     <p><strong>Start Date:</strong> {experience.start_date}</p>
                     <p><strong>End Date:</strong> {experience.end_date || "Present"}</p>
-                    <p><strong>Description:</strong> {experience.job_description}</p>
+                    <p><strong>Description:</strong></p>
+                    <ul>
+                        {experience.job_description.split('\n').map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
                 </div>
             ))}
         </div>
@@ -29,3 +34,4 @@ const ExperiencesComponent = () => {
 };
 
 export default ExperiencesComponent;
+
