@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { fetchExperiences } from '../api/services';
+import { fetchProjects } from '../api/services';
 
-const ExperiencesComponent = () => {
-    const [experiences, setExperiences] = useState([]);
+const ProjectsComponent = () => {
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        fetchExperiences()
+        fetchProjects()
             .then(response => {
-                setExperiences(response.data);
+                setProjects(response.data);
             })
-            .catch(error => console.error('Fetching experiences failed', error));
+            .catch(error => console.error('Fetching projects failed', error));
     }, []);
 
     return (
         <div className="section">
-            <h2>Experience</h2>
-            {experiences.map(experience => (
-                <div key={experience.id} className="multiple-entry">
-                    <h3>{experience.company_name}</h3>
-                    <p><strong>Role:</strong> {experience.role}</p>
-                    <p><strong>Start Date:</strong> {experience.start_date}</p>
-                    <p><strong>End Date:</strong> {experience.end_date || "Present"}</p>
-                    <p><strong>Description:</strong></p>
-                    <ul>
-                        {experience.job_description.split('\n').map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ul>
+            <h2>Projects</h2>
+            {projects.map(project => (
+                <div key={project.id} className="multiple-entry">
+                    <h3>{project.title}</h3>
+                    <div>
+                        <strong>Description:</strong>
+                        <ul>
+                            {project.description.split('\n').map((item, index) => (
+                                item.trim() !== "" ? <li key={index}>{item}</li> : null
+                            ))}
+                        </ul>
+                    </div>
+                    <p><strong>Technologies Used:</strong> {project.technologies_used}</p>
+                    {project.image && (
+                        <img src={project.image} alt={`${project.title} screenshot`} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} />
+                    )}
+                    {project.project_link && (
+                        <p><strong>Project Link:</strong> <a href={project.project_link} target="_blank" rel="noopener noreferrer">{project.project_link}</a></p>
+                    )}
                 </div>
             ))}
         </div>
     );
 };
 
-export default ExperiencesComponent;
-
+export default ProjectsComponent;

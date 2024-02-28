@@ -7,25 +7,29 @@ const SkillsComponent = () => {
     useEffect(() => {
         fetchSkills()
             .then(response => {
-                setSkills(response.data);
+                // Sort the skills by name alphabetically
+                const sortedSkills = response.data.sort((a, b) => a.name.localeCompare(b.name));
+                setSkills(sortedSkills);
             })
             .catch(error => console.error('Fetching skills failed', error));
     }, []);
 
     return (
-        <div className="section">
-            <h2 style={{ marginBottom: '40px' }}>Technical Skills</h2>
-            {skills.map(skill => (
-                <div key={skill.id} style={{ marginBottom: '20px' }}>
-                    <p>{skill.name}</p>
-                    {skill.proficiency_level &&
-                        <p><strong>Proficiency Level:</strong> {skill.proficiency_level}</p>
-                    }
-                    {skill.description &&
-                        <p><strong>Description:</strong> {skill.description}</p>
-                    }
-                </div>
-            ))}
+        <div className="section skills-section">
+            <h2>Technical Skills</h2>
+            <div className="skills-container">
+                {skills.map(skill => (
+                    <div key={skill.id} className="skill-entry">
+                        <p className="skill-name">{skill.name}</p>
+                        {skill.proficiency_level &&
+                            <p className="skill-proficiency"><strong>Proficiency Level:</strong> {skill.proficiency_level}</p>
+                        }
+                        {skill.description &&
+                            <p className="skill-description"><strong>Description:</strong> {skill.description}</p>
+                        }
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
