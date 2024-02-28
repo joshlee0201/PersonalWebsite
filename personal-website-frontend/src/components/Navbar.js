@@ -22,11 +22,6 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="#projects">
-                                <FontAwesomeIcon icon={faProjectDiagram} /> Projects
-                            </a>
-                        </li>
-                        <li className="nav-item">
                             <a className="nav-link" href="#experience">
                                 <FontAwesomeIcon icon={faBriefcase} /> Experience
                             </a>
@@ -34,6 +29,11 @@ const Navbar = () => {
                         <li className="nav-item">
                             <a className="nav-link" href="#education">
                                 <FontAwesomeIcon icon={faGraduationCap} /> Education
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#projects">
+                                <FontAwesomeIcon icon={faProjectDiagram} /> Projects
                             </a>
                         </li>
                         <li className="nav-item">

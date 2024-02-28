@@ -18,7 +18,14 @@ const ProjectsComponent = () => {
             {projects.map(project => (
                 <div key={project.id} className="multiple-entry">
                     <h3>{project.title}</h3>
-                    <p><strong>Description:</strong> {project.description}</p>
+                    <div>
+                        <strong>Description:</strong>
+                        <ul>
+                            {project.description.split('\n').map((item, index) => (
+                                item.trim() !== "" ? <li key={index}>{item}</li> : null
+                            ))}
+                        </ul>
+                    </div>
                     <p><strong>Technologies Used:</strong> {project.technologies_used}</p>
                     {project.image && (
                         <img src={project.image} alt={`${project.title} screenshot`} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} />
