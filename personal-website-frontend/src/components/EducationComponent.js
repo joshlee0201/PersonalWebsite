@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { fetchEducation } from '../api/services';
 
 const formatDate = (dateString) => {
@@ -9,31 +10,21 @@ const formatDate = (dateString) => {
     return `${month}/${day}/${year}`;
 };
 
+const fetchEducations = async () => {
+    const response = await fetchEducation();
+    return response.data;
+};
+
 const EducationComponent = () => {
-    const [educations, setEducations] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: educations, isLoading, error } = useQuery('educations', fetchEducations);
 
-    useEffect(() => {
-        fetchEducation()
-            .then(response => {
-                setEducations(response.data);
-                setLoading(false); // Indicate loading is complete
-            })
-            .catch(error => {
-                console.error('Fetching education failed', error);
-                setError('Failed to fetch education data.'); 
-                setLoading(false); // Indicate loading is complete even if there is an error
-            });
-    }, []);
-
-    if (loading) return <div>Loading...</div>; // Display while loading
-    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Display on error
+    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
+    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
 
     return (
         <div className="section">
             <h2>Education</h2>
-            {educations.map(education => (
+            {educations?.map(education => (
                 <div key={education.id} className="multiple-entry">
                     <h3>{education.institution_name}</h3>
                     <p><strong>Degree:</strong> {education.degree}</p>

@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { fetchProfiles } from '../api/services';
 
+const fetchProfilesData = async () => {
+    const response = await fetchProfiles();
+    return response.data;
+};
+
 const ProfilesComponent = () => {
-    const [profiles, setProfiles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: profiles, isLoading, error } = useQuery('profiles', fetchProfilesData);
 
-    useEffect(() => {
-        fetchProfiles()
-            .then(response => {
-                setProfiles(response.data);
-                setLoading(false); // Data fetched, loading complete
-            })
-            .catch(error => {
-                console.error('Fetching profiles failed', error);
-                setError('Failed to fetch profiles.');
-                setLoading(false); // Loading complete even if there's an error
-            });
-    }, []);
-
-    if (loading) return <div>Loading...</div>; // Show loading message
-    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Show error message
+    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
+    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
 
     return (
         <div className="section">
             <h2>Profiles</h2>
-            {profiles.map(profile => (
+            {profiles?.map(profile => (
                 <div key={profile.id} className="multiple-entry">
                     <h3>{profile.name}</h3>
                     <p><strong>Title:</strong> {profile.title}</p>

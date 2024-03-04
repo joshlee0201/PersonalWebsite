@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { fetchProjects } from '../api/services';
 
+const fetchProjectsData = async () => {
+    const response = await fetchProjects();
+    return response.data;
+};
+
 const ProjectsComponent = () => {
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: projects, isLoading, error } = useQuery('projects', fetchProjectsData);
 
-    useEffect(() => {
-        fetchProjects()
-            .then(response => {
-                setProjects(response.data);
-                setLoading(false); // Data fetched, loading complete
-            })
-            .catch(error => {
-                console.error('Fetching projects failed', error);
-                setError('Failed to fetch projects.');
-                setLoading(false); // Loading complete even if there's an error
-            });
-    }, []);
-
-    if (loading) return <div>Loading...</div>; // Show loading message
-    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Show error message
+    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
+    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
 
     return (
         <div className="section">

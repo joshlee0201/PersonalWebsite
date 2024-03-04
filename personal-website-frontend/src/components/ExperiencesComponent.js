@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { fetchExperiences } from '../api/services';
 
 const formatDate = (dateString) => {
@@ -9,26 +10,16 @@ const formatDate = (dateString) => {
     return `${month}/${day}/${year}`;
 };
 
+const fetchExperiencesData = async () => {
+    const response = await fetchExperiences();
+    return response.data;
+};
+
 const ExperiencesComponent = () => {
-    const [experiences, setExperiences] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: experiences, isLoading, error } = useQuery('experiences', fetchExperiencesData);
 
-    useEffect(() => {
-        fetchExperiences()
-            .then(response => {
-                setExperiences(response.data);
-                setLoading(false); // Indicate loading is complete
-            })
-            .catch(error => {
-                console.error('Fetching experiences failed', error);
-                setError('Failed to fetch experiences.');
-                setLoading(false); // Indicate loading is complete even if there is an error
-            });
-    }, []);
-
-    if (loading) return <div>Loading...</div>; // Display while loading
-    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Display on error
+    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
+    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
 
     return (
         <div className="section">

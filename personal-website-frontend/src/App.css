@@ -23,12 +23,21 @@ body {
   line-height: 1.6;
 }
 
+/* Target all elements that can be an anchor target */
+.section::before {
+  content: "";
+  display: block;
+  height: 70px; /* Height equal to navbar height */
+  margin-top: -20px; /* Negative margin equal to the pseudo-element's height */
+  visibility: hidden;
+}
+
 .section {
   background-color: var(--section-color); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   border-radius: 8px; 
   padding: 20px; 
-  margin-bottom: 40px;
+  margin-bottom: 100px;
 }
 
 .section h2 {
@@ -149,6 +158,12 @@ a:hover {
 }
 
 /* Skills section layout */
+.skills-section {
+  padding-bottom: 100px; 
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
 .skills-section h2 {
   margin-bottom: 60px; /* Increase margin under the Technical Skills heading */
 }
