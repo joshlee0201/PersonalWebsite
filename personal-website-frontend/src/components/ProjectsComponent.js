@@ -3,14 +3,24 @@ import { fetchProjects } from '../api/services';
 
 const ProjectsComponent = () => {
     const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchProjects()
             .then(response => {
                 setProjects(response.data);
+                setLoading(false); // Data fetched, loading complete
             })
-            .catch(error => console.error('Fetching projects failed', error));
+            .catch(error => {
+                console.error('Fetching projects failed', error);
+                setError('Failed to fetch projects.');
+                setLoading(false); // Loading complete even if there's an error
+            });
     }, []);
+
+    if (loading) return <div>Loading...</div>; // Show loading message
+    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Show error message
 
     return (
         <div className="section">

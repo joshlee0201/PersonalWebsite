@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchEducation } from '../api/services';
 
-// Utility function to format dates
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = new Intl.DateTimeFormat('en', { year: '2-digit' }).format(date);
@@ -12,14 +11,24 @@ const formatDate = (dateString) => {
 
 const EducationComponent = () => {
     const [educations, setEducations] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchEducation()
             .then(response => {
                 setEducations(response.data);
+                setLoading(false); // Indicate loading is complete
             })
-            .catch(error => console.error('Fetching education failed', error));
+            .catch(error => {
+                console.error('Fetching education failed', error);
+                setError('Failed to fetch education data.'); 
+                setLoading(false); // Indicate loading is complete even if there is an error
+            });
     }, []);
+
+    if (loading) return <div>Loading...</div>; // Display while loading
+    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Display on error
 
     return (
         <div className="section">

@@ -3,6 +3,8 @@ import { fetchSkills } from '../api/services';
 
 const SkillsComponent = () => {
     const [skills, setSkills] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchSkills()
@@ -10,9 +12,17 @@ const SkillsComponent = () => {
                 // Sort the skills by name alphabetically
                 const sortedSkills = response.data.sort((a, b) => a.name.localeCompare(b.name));
                 setSkills(sortedSkills);
+                setLoading(false); // Indicate loading is complete
             })
-            .catch(error => console.error('Fetching skills failed', error));
+            .catch(error => {
+                console.error('Fetching skills failed', error);
+                setError('Failed to fetch skills.');
+                setLoading(false); // Indicate loading is complete even if there is an error
+            });
     }, []);
+
+    if (loading) return <div>Loading...</div>; // Show loading message
+    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Show error message
 
     return (
         <div className="section skills-section">

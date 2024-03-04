@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchExperiences } from '../api/services';
 
-// Utility function to format dates
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = new Intl.DateTimeFormat('en', { year: '2-digit' }).format(date);
@@ -12,14 +11,24 @@ const formatDate = (dateString) => {
 
 const ExperiencesComponent = () => {
     const [experiences, setExperiences] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchExperiences()
             .then(response => {
                 setExperiences(response.data);
+                setLoading(false); // Indicate loading is complete
             })
-            .catch(error => console.error('Fetching experiences failed', error));
+            .catch(error => {
+                console.error('Fetching experiences failed', error);
+                setError('Failed to fetch experiences.');
+                setLoading(false); // Indicate loading is complete even if there is an error
+            });
     }, []);
+
+    if (loading) return <div>Loading...</div>; // Display while loading
+    if (error) return <div style={{ color: 'white' }}>Error: {error}</div>; // Display on error
 
     return (
         <div className="section">
