@@ -4,10 +4,7 @@ import { fetchEducation } from '../api/services';
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const year = new Intl.DateTimeFormat('en', { year: '2-digit' }).format(date);
-    const month = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(date);
-    const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-    return `${month}/${day}/${year}`;
+    return `${new Intl.DateTimeFormat('en', { month: '2-digit' }).format(date)}/${new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)}/${new Intl.DateTimeFormat('en', { year: '2-digit' }).format(date)}`;
 };
 
 const fetchEducations = async () => {
@@ -16,10 +13,15 @@ const fetchEducations = async () => {
 };
 
 const EducationComponent = () => {
-    const { data: educations, isLoading, error } = useQuery('educations', fetchEducations);
+    const { data: educations, isLoading, error } = useQuery('educations', fetchEducations, {
+        staleTime: 5 * 60 * 1000, // Data is fresh for 5 minutes
+        cacheTime: 15 * 60 * 1000, // Data cached for 15 minutes
+        refetchOnMount: false,
+        refetchOnWindowFocus: false
+    });
 
-    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
-    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
 
     return (
         <div className="section">

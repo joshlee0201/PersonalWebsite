@@ -4,10 +4,7 @@ import { fetchExperiences } from '../api/services';
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const year = new Intl.DateTimeFormat('en', { year: '2-digit' }).format(date);
-    const month = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(date);
-    const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-    return `${month}/${day}/${year}`;
+    return `${new Intl.DateTimeFormat('en', { month: '2-digit' }).format(date)}/${new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)}/${new Intl.DateTimeFormat('en', { year: '2-digit' }).format(date)}`;
 };
 
 const fetchExperiencesData = async () => {
@@ -16,28 +13,26 @@ const fetchExperiencesData = async () => {
 };
 
 const ExperiencesComponent = () => {
-    const { data: experiences, isLoading, error } = useQuery('experiences', fetchExperiencesData);
+    const { data: experiences, isLoading, error } = useQuery('experiences', fetchExperiencesData, {
+        staleTime: 5 * 60 * 1000,
+        cacheTime: 15 * 60 * 1000,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false
+    });
 
-    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
-    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
 
     return (
         <div className="section">
             <h2>Experience</h2>
-            {experiences.map(experience => (
+            {experiences?.map(experience => (
                 <div key={experience.id} className="multiple-entry">
                     <h3>{experience.company_name}</h3>
                     <p><strong>Role:</strong> {experience.role}</p>
                     <p><strong>Start Date:</strong> {formatDate(experience.start_date)}</p>
                     <p><strong>End Date:</strong> {experience.end_date ? formatDate(experience.end_date) : "Present"}</p>
-                    <div>
-                        <strong>Description:</strong>
-                        <ul>
-                            {experience.job_description.split('\n').map((item, index) => (
-                                item.trim() !== "" ? <li key={index}>{item}</li> : null
-                            ))}
-                        </ul>
-                    </div>
+                    <p><strong>Description:</strong> {experience.job_description}</p>
                 </div>
             ))}
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { fetchSkills } from '../api/services';
+import { fetchSkills } from '../api/services'; // Ensure fetchSkillsData is defined and correctly fetching the data
 
 const fetchSkillsData = async () => {
     const response = await fetchSkills();
@@ -9,10 +9,15 @@ const fetchSkillsData = async () => {
 };
 
 const SkillsComponent = () => {
-    const { data: skills, isLoading, error } = useQuery('skills', fetchSkillsData);
+    const { data: skills, isLoading, error } = useQuery('skills', fetchSkillsData, {
+        staleTime: 5 * 60 * 1000, 
+        cacheTime: 15 * 60 * 1000,
+        refetchOnMount: false, 
+        refetchOnWindowFocus: false 
+    });
 
-    if (isLoading) return <div style={{ color: 'white' }}>Loading...</div>;
-    if (error) return <div style={{ color: 'white' }}>Error: {error.message}</div>;
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
 
     return (
         <div className="section skills-section">
@@ -23,9 +28,6 @@ const SkillsComponent = () => {
                         <p className="skill-name">{skill.name}</p>
                         {skill.proficiency_level &&
                             <p className="skill-proficiency"><strong>Proficiency Level:</strong> {skill.proficiency_level}</p>
-                        }
-                        {skill.description &&
-                            <p className="skill-description"><strong>Description:</strong> {skill.description}</p>
                         }
                     </div>
                 ))}
